@@ -3,4 +3,4 @@ Disallow: /admin/
 Disallow: /account/
 Allow: /
 
-Sitemap: https://oneclevermonkey.com/sitemap.xml
+Sitemap: https://bitesize.com/sitemap.xml
