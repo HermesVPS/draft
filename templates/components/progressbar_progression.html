@@ -1,0 +1,40 @@
+<div class="w-full flex items-center gap-2">
+  <progress id="progress-bar" class="progress progress-success w-full" value="{{ pdf_project.progress|default:0 }}"
+            max="100"></progress>
+  <span class="ml-2 whitespace-nowrap">{{ pdf_project.progress|default:0 }}%</span>
+</div>
+
+<div class="flex flex-col gap-2 mt-2 w-full">
+                {% if pdf_project.progress >= 90 %}
+                <p class="font-poppins text-xs md:text-sm">Finalizing your content... Almost there!</p>
+                {% elif pdf_project.progress >= 80 %}
+                <p class="font-poppins text-xs md:text-sm">Adding the finishing touches. You're going to love this!</p>
+                {% elif pdf_project.progress >= 70 %}
+                <p class="font-poppins text-xs md:text-sm">Getting close. Please hang tight!</p>
+                {% elif pdf_project.progress >= 60 %}
+                <p class="font-poppins text-xs md:text-sm">Making great progress! Your content is coming together beautifully.</p>
+                {% elif pdf_project.progress >= 51 %}
+                <p class="font-poppins text-xs md:text-sm">Over halfway done! Your content is shaping up nicely!</p>
+                {% elif pdf_project.progress >= 40 %}
+                <p class="font-poppins text-xs md:text-sm">Steady progress being made. We're building something great!</p>
+                {% elif pdf_project.progress >= 30 %}
+                <p class="font-poppins text-xs md:text-sm">Making solid headway. Your patience is appreciated!</p>
+                {% elif pdf_project.progress >= 25 %}
+                <p class="font-poppins text-xs md:text-sm">A quarter of the way there... Progressing steadily.</p>
+                {% elif pdf_project.progress >= 10 %}
+                <p class="font-poppins text-xs md:text-sm">Getting started! The magic is beginning to happen.</p>
+                {% else %}
+                <p class="font-poppins text-xs md:text-sm">One clever monkey is preparing your content. This will
+                    take several minutes.</p>
+                {% endif %}
+</div>
+
+
+
+{% if pdf_project.progress >= 100 %}
+<script>
+    // When this template is loaded with 100% progress, refresh the page
+    window.location.reload();
+</script>
+{% endif %}
+

@@ -1,0 +1,54 @@
+<!--TEMPLATE/COMPONENTS/HEAD.HTML-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}bitesize{% endblock %}</title>
+    {% include 'components/seo.html' %}
+    {% load static %}
+ <!-- Font Awesome -->
+    <link rel="preload" href="{% static 'fontawesome/webfonts/fa-regular-400.woff2' %}" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+
+
+    <!-- HTMX (kept for future specific needs) -->
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- TinyMCE - Now loaded via Django -->
+    {% block extra_js %}{% endblock %}
+    <!-- Custom JavaScript -->
+    <script src="{% static 'js/app.js' %}" defer></script>
+    <script src="{% static 'js/sections.js' %}"></script>
+
+    <script src="{% static 'js/loading-overlay.js' %}" defer></script>
+
+    <!-- Stripe JavaScript -->
+{#    <script src="https://js.stripe.com/v3/"></script>#}
+    {% block extra_head %}{% endblock %}
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#4f46e5">
+
+    <!-- iOS PWA support -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="One Clever Monkey">
+
+    <!-- Favicons and PWA Icons -->
+    <link href="{% static 'icons/favicon.ico' %}"
+          rel="icon"
+          type="image/x-icon"/>
+    <link href="{% static 'icons/icon-192.png' %}"
+          rel="apple-touch-icon"
+          sizes="192x192"/>
+    <link href="{% static 'icons/icon-512.png' %}"
+          rel="apple-touch-icon"
+          sizes="512x512"/>
+
+    <!-- Service Worker Registration -->
+    <script src="{% static 'js/register-sw.js' %}"></script>
+</head>

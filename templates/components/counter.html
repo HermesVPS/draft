@@ -1,0 +1,10 @@
+<!-- Project counter -->
+<p class="font-poppins text-xs md:text-sm">
+    {% if subscription_plan == 'standard' %}
+      Starter User: {{ user_credits }} credits remaining
+    {% elif subscription_plan == 'power' %}
+      Power User: {{ user_credits }} credits remaining
+    {% else %}
+      Free User: {{ user_credits }} credits remaining
+    {% endif %}
+</p>

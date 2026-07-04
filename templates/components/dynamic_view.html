@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+    {% include 'components/top-navbar.html' %}
+    {% include 'components/counter.html' %}
+{% endblock %}
+
+{% block content %}
+    {% include template_name %}
+{% endblock %}

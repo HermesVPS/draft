@@ -1,0 +1,19 @@
+{% load static %}
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<!-- Robots -->
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{% static 'icons/og-image.png' %}">
+<meta property="og:description" content="Learning, growth, and cleverness for everyone.">
+
+<!-- Twitter Card -->
+<meta name="twitter:" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title }}">
+<meta name="twitter:description" content="Learning, growth, and cleverness for everyone.">
+<meta name="twitter:image" content="{% static 'icons/og-image.png' %}">

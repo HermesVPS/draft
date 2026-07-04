@@ -1,0 +1,35 @@
+<!--TEMPLATE/ACCOUNTS/LOGOUT.HTML-->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'components/landing-header.html' %}
+<div class="container mx-auto md:max-w-[320px] lg:max-w-[480px] space-y-4 md:space-y-6">
+<div class="text-center space-y-4 md:space-y-6">
+    <div class="mb-6 flex justify-center space-y-4 md:space-y-6">
+        <div class="w-16 h-16 bg-warning/20 rounded-sm flex items-center justify-center">
+            <i class="fa-regular fa-right-from-bracket text-warning text-2xl"></i>
+        </div>
+    </div>
+
+    <p class="font-poppins text-xs md:text-sm">
+        Are you sure you want to sign out?
+    </p>
+
+    <form method="post" action="{% url 'account:logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+
+        <div class="flex justify-center gap-4">
+            <a href="{% url 'home' %}" class="btn btn-outline">Cancel</a>
+
+            <button type="submit" class="btn btn-primary">
+
+                Sign Out
+            </button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!--TEMPLATE/ACCOUNTS/BASE_ACCOUNTS.HTML-->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {%  if user.is_authenticated %}
+    {% include 'components/top-navbar.html' %}
+    {% else %}
+    {% include 'components/landing-header.html' %}
+    {% endif %}
+<div class="min-h-screen bg-base-200">
+ <main class="mx-4 md:mx-16 mt-4 md:mt-8 mb-4 md:mb-16 space-y-4 md:space-y-6">
+    <div class="max-w-md mx-auto">
+        <div class="bg-base-100 border border-base-300 rounded-sm p-4 md:p-6 shadow-sm hover:bg-base-200 transition-colors flex flex-col h-full space-y-4 md:space-y-6">
+
+                <h2 class="font-roboto text-base md:text-lg font-medium">{% block account_title %}{% endblock %}</h2>
+                
+                {% block account_content %}{% endblock %}
+            </div>
+        </div>
+
+ </main>
+</div>
+{% endblock %}

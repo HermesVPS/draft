@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="uv (BiteSize)" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="fb7495cc-0e12-4b10-86d7-f724a9cc83f9" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="uv (BiteSize)" project-jdk-type="Python SDK" />
+</project>

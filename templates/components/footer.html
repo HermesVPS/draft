@@ -1,0 +1,41 @@
+<!--TEMPLATE/COMPONENTS/FOOTER.HTML-->
+<div class="flex flex-col w-full items-center space-y-2">
+  <div class="p-4">
+    <p class="font-poppins text-xs">
+      We use reputable third-party AI models to enhance productivity and streamline your experience. However, please be aware AI can make mistakes.
+      <!-- make this a button for better semantics & keyboard‐accessibility -->
+      <button type="button"
+              class="group relative inline-block ml-1 text-primary font-medium cursor-pointer focus:outline-none">
+        More…
+        <!-- tooltip: hidden by default, shown on group-hover -->
+        <div
+          class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-72 max-w-xl p-4 rounded-sm bg-primary text-primary-content text-xs shadow-sm z-20
+                 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-auto">
+          <ul class="list-decimal pl-5 space-y-2">
+            <li>
+              <span class="font-medium">AI can make mistakes.</span> While helpful, AI-generated responses may be inaccurate, outdated, or incomplete. Always verify critical information independently.
+            </li>
+            <li>
+              <span class="font-medium">Your data is secure.</span> One Clever Monkey does not use any data documents to train its models.
+            </li>
+            <li>
+              <span class="font-medium">No substitute for expert advice.</span> AI suggestions are not professional, legal, medical, or business advice. Use your judgement or consult a qualified expert when necessary.
+            </li>
+            <li>
+              <span class="font-medium">Bias and limitations exist.</span> AI responses are generated based on patterns in data and may reflect biases or lack of context.
+            </li>
+          </ul>
+          <p class="mt-4">By using AI-powered features, you acknowledge and accept these limitations.</p>
+        </div>
+      </button>
+    </p>
+  </div>
+
+  <footer class="footer footer-center p-4 bg-base-content text-neutral-content mt-auto">
+    <div>
+      <p class="font-poppins text-xs md:text-sm">
+        &copy; {% now "Y" %} B<span class="text-secondary-content font-medium">ite</span>Size. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</div>

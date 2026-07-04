@@ -1,0 +1,41 @@
+<!-- Loading Overlay Component -->
+{#<div x-data="{ show: false }" #}
+{#     x-show="show" #}
+{#     x-cloak#}
+{#     @page-loading.window="show = true"#}
+{#     @hide-loading.window="show = false"#}
+{#     id="background" class= "loading-overlay bg-primary/20 shadow-sm ">#}
+{#    <div id="progress-box" class="loading-overlay__content bg-base-100  p-4 rounded-sm p-8">#}
+{#        <span class="loading loading-spinner loading-lg text-primary mb-4"></span>#}
+{#        <p class="font-poppins text-xs md:text-sm">Processing, I won't be long...</p>#}
+{#    </div>#}
+{#</div>#}
+
+<div x-data="{ show: false }"
+     x-show="show"
+     x-cloak
+     @page-loading.window="show = true"
+     @hide-loading.window="show = false"
+     id="background" class="loading-overlay bg-primary/20 shadow-sm">
+    <div id="progress-box" class="loading-overlay__content bg-base-100 p-4 rounded-sm p-8">
+        <span class="loading loading-spinner loading-lg text-primary mb-4"></span>
+        {% if request.resolver_match.url_name == 'start' %}
+            <p class="font-poppins text-xs md:text-sm">Generating problems... Hang tight!</p>
+        {% elif request.resolver_match.url_name == 'problem_selection' %}
+            <p class="font-poppins text-xs md:text-sm">Validating the problem, please wait...</p>
+        {% elif request.resolver_match.url_name == 'problem_validation' %}
+            <p class="font-poppins text-xs md:text-sm">Creating marketing, This won't take long...</p>
+        {% elif request.resolver_match.url_name == 'research_document' %}
+            <p class="font-poppins text-xs md:text-sm">Generating titles, Give us a minute...</p>
+        {% elif request.resolver_match.url_name == 'pdf_title_selection' %}
+            <p class="font-poppins text-xs md:text-sm">Creating your outline, hold on...</p>
+        {% elif request.resolver_match.url_name == 'outline' %}
+            <p class="font-poppins text-xs md:text-sm">Ready to build your content...</p>
+        {% elif request.resolver_match.url_name == 'contact' %}
+            <p class="font-poppins text-xs md:text-sm">Sending your message...</p>
+        {% else %}
+            <p class="font-poppins text-xs md:text-sm">Processing, I won't be long...</p>
+        {% endif %}
+    </div>
+</div>
+

@@ -1,0 +1,32 @@
+<div class="dropdown dropdown-end">
+  <label tabindex="0" class="text-primary btn btn-sm btn-secondary-content">
+    <i class="fa-regular fa-share-nodes mr-1"></i> Go to...
+  </label>
+  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-60">
+    <li>
+      <a href="{% url 'pdf_ideation:marketing_resources' pdf_project.id %}">
+        <i class="fa-regular fa-bullhorn mr-2"></i> Marketing Resources
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'pdf_ideation:outline' pdf_project.id %}">
+        <i class="fa-regular fa-list mr-2"></i> Outline
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'pdf_ideation:sections' pdf_project.id %}">
+        <i class="fa-regular fa-layer-plus mr-2"></i> Sections
+      </a>
+    </li>
+{#    <li>#}
+{#      <a href="{% url 'pdf_ideation:preview' pdf_project.id %}">#}
+{#        <i class="fa-regular fa-eye mr-2"></i> Preview#}
+{#      </a>#}
+{#    </li>#}
+    <li>
+      <a href="{% url 'pdf_ideation:export' pdf_project.id %}">
+        <i class="fa-regular fa-file-export mr-2"></i> Export
+      </a>
+    </li>
+  </ul>
+</div>

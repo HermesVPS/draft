@@ -1,0 +1,78 @@
+<!--TEMPLATE/ACCOUNTS/LOGIN.HTML-->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'components/landing-header.html' %}
+<div class="container mx-auto md:max-w-[320px] lg:max-w-[480px] space-y-4 md:space-y-6">
+<div x-data="{ showPassword: false }">
+    <form method="post" action="{% url 'account:login' %}">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-error mb-4">
+            {% for error in form.non_field_errors %}
+                <div>{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="form-control mb-4">
+            <label class="label" for="id_login">
+                <span class="font-poppins text-xs md:text-sm">Email</span>
+            </label>
+            <input type="email" name="login" id="id_login" placeholder="your@email.com"
+                   class="input w-full input-common{% if form.login.errors %} input-error{% endif %}" required>
+            {% if form.login.errors %}
+                <label class="label">
+                    <span class="label-text-alt text-error">{{ form.login.errors.0 }}</span>
+                </label>
+            {% endif %}
+        </div>
+
+        <div class="form-control mb-4">
+            <label class="label" for="id_password">
+                <span class="font-poppins text-xs md:text-sm">Password</span>
+            </label>
+            <div class="relative">
+                <input :type="showPassword ? 'text' : 'password'" name="password" id="id_password"
+                       placeholder="••••••••"
+                       class="input w-full input-common {% if form.password.errors %}input-error{% endif %}"
+                       required>
+                <button type="button" @click="showPassword = !showPassword"
+                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                        tabindex="-1">
+                    <i class="fa-regular" :class="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                </button>
+            </div>
+            {% if form.password.errors %}
+                <label class="label">
+                    <span class="label-text-alt text-error">{{ form.password.errors.0 }}</span>
+                </label>
+            {% endif %}
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <input type="checkbox" name="remember" id="id_remember" class="checkbox checkbox-primary">
+                    <span class="font-poppins text-xs md:text-sm ml-2">Remember me</span>
+                </label>
+            </div>
+            <a href="{% url 'account:password_reset' %}" class="font-poppins text-xs md:text-sm cursor-pointer
+            text-primary hover:underline">
+                Forgot password?
+            </a>
+        </div>
+
+        <div class="form-control mb-4">
+            <button type="submit" class="btn btn-primary w-full">Sign In</button>
+        </div>
+
+        <div class="text-center font-poppins text-xs md:text-sm">
+            Don't have an account?
+            <a href="{% url 'account:signup' %}" class="text-primary cursor-pointer hover:underline">Sign up</a>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+[project]
+name = "bitesize"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=6.0.6",
+    "python-decouple>=3.8",
+    "django-allauth>=64.0",
+    "django-ratelimit>=4.1",
+]

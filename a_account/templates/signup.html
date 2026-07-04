@@ -1,0 +1,182 @@
+<!--TEMPLATE/ACCOUNTS/SIGNUP.HTML-->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'components/landing-header.html' %}
+<div class="container mx-auto md:max-w-[320px] lg:max-w-[480px] px-4 py-8">
+<div x-data="{ showPassword: false, showPasswordConfirm: false }">
+
+
+  <form method="post" action="{% url 'account:signup' %}">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-error mb-4">
+      {% for error in form.non_field_errors %}
+        <div>{{ error }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- First Name -->
+  <div class="flex flex-row space-x-4">  <div class="form-control mb-4">
+      <label class="label" for="id_first_name">
+        <span class="font-poppins text-xs md:text-sm">First Name</span>
+      </label>
+      <input type="text" name="first_name" id="id_first_name" placeholder="Jane"
+             class="input w-full outline-content border-1 border-neutral-content rounded-sm p-6 outline-none
+             focus:outline-none focus:ring-0 focus:border-neutral-content {% if form.first_name.errors %}input-error{% endif %}"
+             required>
+      {% if form.first_name.errors %}
+        <label class="label">
+          <span class="label-text-alt text-error">{{ form.first_name.errors.0 }}</span>
+        </label>
+      {% endif %}
+    </div>
+
+    <!-- Last Name -->
+    <div class="form-control mb-4">
+      <label class="label" for="id_last_name">
+        <span class="font-poppins text-xs md:text-sm">Last Name</span>
+      </label>
+      <input type="text" name="last_name" id="id_last_name" placeholder="Doe"
+             class="input w-full outline-content border-1 border-neutral-content rounded-sm p-6 outline-none
+             focus:outline-none focus:ring-0 focus:border-neutral-content {% if form.last_name.errors %}input-error{% endif %}"
+             required>
+      {% if form.last_name.errors %}
+        <label class="label">
+          <span class="label-text-alt text-error">{{ form.last_name.errors.0 }}</span>
+        </label>
+      {% endif %}
+    </div></div>
+<div class="form-control mb-4 hidden">
+  <label class="label" for="id_home_address">
+    <span class="label-text">Home Address</span>
+  </label>
+  <input type="text" name="home_address" id="id_home_address"
+         class="input w-full p-6" autocomplete="off">
+</div>
+    <!-- Email -->
+    <div class="form-control mb-4">
+      <label class="label" for="id_email">
+        <span class="font-poppins text-xs md:text-sm">Email</span>
+      </label>
+      <input type="email" name="email" id="id_email" placeholder="your@email.com"
+             class="input w-full outline-content border-1 border-neutral-content rounded-sm p-6 outline-none
+             focus:outline-none focus:ring-0 focus:border-neutral-content {% if form.email.errors %}input-error{% endif %}"
+             required>
+      {% if form.email.errors %}
+        <label class="label">
+          <span class="label-text-alt text-error">{{ form.email.errors.0 }}</span>
+        </label>
+      {% endif %}
+    </div>
+
+    <!-- Password -->
+    <div class="form-control mb-4">
+      <label class="label" for="id_password1">
+        <span class="font-poppins text-xs md:text-sm">Password</span>
+      </label>
+      <div class="relative">
+        <input :type="showPassword ? 'text' : 'password'" name="password1" id="id_password1"
+               placeholder="••••••••"
+               class="input w-full outline-content border-1 border-neutral-content rounded-sm p-6 outline-none
+               focus:outline-none focus:ring-0 focus:border-neutral-content pr-10 {% if form.password1.errors %}input-error{% endif %}"
+               required>
+        <button type="button" @click="showPassword = !showPassword"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                tabindex="-1">
+          <i class="fa-regular" :class="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </button>
+
+      </div>
+        <p class="font-poppins text-xs text-accent-content mt-2">Minimum 8 characters</p>
+      {% if form.password1.errors %}
+        <label class="label">
+          <span class="label-text-alt text-error">{{ form.password1.errors.0 }}</span>
+        </label>
+      {% endif %}
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="form-control mb-6">
+      <label class="label" for="id_password2">
+        <span class="font-poppins text-xs md:text-sm">Confirm Password</span>
+      </label>
+      <div class="relative">
+        <input :type="showPasswordConfirm ? 'text' : 'password'" name="password2" id="id_password2"
+               placeholder="••••••••"
+               class="input w-full outline-content border-1 border-neutral-content rounded-sm p-6 outline-none
+               focus:outline-none focus:ring-0 focus:border-neutral-content pr-10 {% if form.password2.errors %}input-error{% endif %}"
+               required>
+        <button type="button" @click="showPasswordConfirm = !showPasswordConfirm"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                tabindex="-1">
+          <i class="fa-regular" :class="showPasswordConfirm ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </button>
+      </div>
+      {% if form.password2.errors %}
+        <label class="label">
+          <span class="label-text-alt text-error">{{ form.password2.errors.0 }}</span>
+        </label>
+      {% endif %}
+    </div>
+
+    <!-- Submit -->
+    <div class="form-control mb-4">
+      <button type="submit" class="btn btn-primary w-full">Sign Up</button>
+    </div>
+
+    <div class="text-center font-poppins text-xs md:text-sm">
+      Already have an account?
+      <a href="{% url 'account:login' %}" class="text-primary cursor-pointer hover:underline">Sign in</a>
+    </div>
+  </form>
+
+
+{#    <form method="post" action="{% url 'account:signup' %}">#}
+{#        {% csrf_token %}#}
+{##}
+{#        {% if form.non_field_errors %}#}
+{#        <div class="alert alert-error mb-4">#}
+{#            {% for error in form.non_field_errors %}#}
+{#                <div>{{ error }}</div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#        {% endif %}#}
+{##}
+{#        <div class="form-control mb-6">#}
+{#            <label class="label" for="id_password2">#}
+{#                <span class="label-text">Confirm Password</span>#}
+{#            </label>#}
+{#            <div class="relative">#}
+{#                <input :type="showPasswordConfirm ? 'text' : 'password'" name="password2" id="id_password2"#}
+{#                       placeholder="••••••••"#}
+{#                       class="input w-full outline-content border-1 border-neutral-content rounded-sm p-6 outline-none#}
+{#                   focus:outline-none focus:ring-0 focus:border-neutral-content pr-10 {% if form.password2.errors %}input-error{% endif %}"#}
+{#                       required>#}
+{#                <button type="button" @click="showPasswordConfirm = !showPasswordConfirm"#}
+{#                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"#}
+{#                        tabindex="-1">#}
+{#                    <i class="fa-regular" :class="showPasswordConfirm ? 'fa-eye' : 'fa-eye-slash'"></i>#}
+{#                </button>#}
+{#            </div>#}
+{#            {% if form.password2.errors %}#}
+{#                <label class="label">#}
+{#                    <span class="label-text-alt text-error">{{ form.password2.errors.0 }}</span>#}
+{#                </label>#}
+{#            {% endif %}#}
+{#        </div>#}
+{##}
+{#        <div class="form-control mb-4">#}
+{#            <button type="submit" class="btn btn-primary w-full">Sign Up</button>#}
+{#        </div>#}
+{##}
+{#        <div class="text-center text-sm">#}
+{#            Already have an account?#}
+{#            <a href="{% url 'account:login' %}" class="text-primary cursor-pointer hover:underline">Sign in</a>#}
+{#        </div>#}
+{#    </form>#}
+</div>
+</div>
+{% endblock %}

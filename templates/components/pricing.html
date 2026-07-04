@@ -1,0 +1,130 @@
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 my-8">
+<!-- Free tier -->
+<div class="bg-base-100 border border-base-300 rounded-sm p-4 md:p-6 shadow-sm hover:bg-base-200 transition-colors
+flex flex-col h-full space-y-4 md:space-y-6 hover:border-secondary cursor-pointer">
+
+    <h2 class="font-roboto text-base md:text-lg font-medium">Free</h2>
+    <div class="flex flex-row justify-between"><div class="text-3xl font-medium mb-4 text-secondary">$0</div>
+        {% if subscription_plan == 'free' and subscription_status == 'active '%}<badge class="badge badge-warning
+        text-xs md:text-sm
+    font-medium">Current Plan</badge>{% endif %}</div>
+    <ul class="mb-6 space-y-2">
+      <li class="flex items-center">
+        <i class="fa-regular fa-check mr-2"></i>
+        Get 10 credits (one-time)
+      </li>
+              <li class="flex items-center">
+        <i class="fa-regular fa-check mr-2"></i>
+        Create up to 2 full content projects
+      </li>
+      <li class="flex items-center">
+        <i class="fa-regular fa-check  mr-2"></i>
+        Explore the complete process
+      </li>
+    </ul>
+    <div class=" mt-auto text-secondary">
+      <a href="{% url 'account:signup' %}" class="btn btn-outline btn-block">
+        <i class="fa-regular fa-rocket fa-lg mr-2"></i>
+          {% if subscription_plan == 'free' and user_credits > 0 %}
+          {{ user_credits }} credits remaining
+          {% else %}
+          Upgrade Now
+          {% endif %}
+      </a>
+    </div>
+  </div>
+
+
+<!-- Standard tier -->
+<div class="bg-base-100 border border-base-300 rounded-sm p-4 md:p-6 shadow-sm hover:bg-base-200 transition-colors
+flex flex-col h-full space-y-4 md:space-y-6 hover:border-secondary cursor-pointer">
+
+   <h2 class="font-roboto text-base md:text-lg font-medium">Starter</h2>
+
+    <div class="flex flex-row justify-between"><div class="text-3xl font-medium mb-4 text-secondary">$25<span
+            class="text-sm
+    font-normal">/month</span></div>{% if subscription_plan == 'standard' and subscription_status == 'active '%}<badge
+            class="badge badge-warning text-xs md:text-sm text-white font-medium">Current Plan</badge>{% endif %}</div>
+    <ul class="mb-6 space-y-2">
+      <li class="flex items-center">
+        <i class="fa-regular fa-check mr-2"></i>
+        Get 200 credits per month
+      </li>
+         <li class="flex items-center">
+        <i class="fa-regular fa-check mr-2"></i>
+        Great value for regular users looking to grow.
+      </li>
+         <li class="flex items-center">
+        <i class="fa-regular fa-check mr-2"></i>
+        Credits never expire and you can upgrade anytime.
+      </li>
+    </ul>
+<!-- Standard tier -->
+            <div class=" mt-auto">
+              <a href="{% url 'payments:pay' %}?plan=standard" class="btn btn-primary btn-block">
+                <i class="fa-regular fa-seedling fa-lg mr-2"></i> Choose Starter
+              </a>
+            </div>
+  </div>
+
+<!-- Top-Up tier -->
+<div class="bg-base-100 border border-base-300 rounded-sm p-4 md:p-6 shadow-sm hover:bg-base-200 transition-colors
+flex flex-col h-full space-y-4 md:space-y-6 hover:border-secondary cursor-pointer">
+
+    <h2 class="font-roboto text-base md:text-lg font-medium">Top-Up</h2>
+    <div class="text-3xl font-medium mb-4 text-secondary">$5</div>
+    <ul class="mb-6 space-y-2">
+      <li class="flex items-center">
+        <i class="fa-regular fa-check  mr-2"></i>
+        Top-up 30 credits any time
+      </li>
+        <li class="flex items-center">
+        <i class="fa-regular fa-check  mr-2"></i>
+        Perfect for casual users who just need a few more credits.
+      </li>
+      <li class="flex items-center">
+        <i class="fa-regular fa-check  mr-2"></i>
+        No commitment — just top up when you need it.
+      </li>
+    </ul>
+<!-- Top-Up tier -->
+            <div class=" mt-auto">
+              <a href="{% url 'payments:pay' %}?plan=topup" class="btn btn-secondary btn-block">
+                <i class="fa-regular fa-plus fa-lg mr-2"></i> Top Up Now
+              </a>
+            </div>
+
+  </div>
+
+
+<!-- Power tier -->
+<div class="bg-base-100 border border-base-300 rounded-sm p-4 md:p-6 shadow-sm hover:bg-base-200 transition-colors
+flex flex-col h-full space-y-4 md:space-y-6 hover:border-secondary cursor-pointer">
+
+    <h2 class="font-roboto text-base md:text-lg font-medium">Power</h2>
+
+    <div class="flex flex-row justify-between"><div class="text-3xl font-medium mb-4 text-secondary">$99<span class="text-sm font-normal">/month</span></div>{% if subscription_plan == 'power' and subscription_status == 'active '%}<badge class="badge badge-warning text-xs md:text-sm text-white
+    font-medium">Current
+        Plan</badge> {% endif %}</div>
+    <ul class="mb-6 space-y-2">
+      <li class="flex items-center">
+        <i class="fa-regular fa-check  mr-2"></i>
+        Get 1000 credits per month
+      </li>
+      <li class="flex items-center">
+        <i class="fa-regular fa-check  mr-2"></i>
+        Designed for power users and serious builders.
+      </li>
+              <li class="flex items-center">
+        <i class="fa-regular fa-check  mr-2"></i>
+        Get the best price per credit and scale your productivity.
+      </li>
+    </ul>
+<!-- Power tier -->
+            <div class=" mt-auto">
+              <a href="{% url 'payments:pay' %}?plan=power" class="btn btn-info btn-block text-white">
+                <i class="fa-regular fa-bolt fa-lg mr-2"></i> Choose Power
+              </a>
+            </div>
+  </div>
+</div>

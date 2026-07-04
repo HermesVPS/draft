@@ -1,0 +1,43 @@
+<!--TEMPLATE/ACCOUNTS/EMAIL_CONFIRM.HTML-->
+{% extends 'base_accounts.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block account_title %}{% trans "Confirm Email Address" %}{% endblock %}
+
+{% block account_content %}
+<div class="text-center">
+    {% if confirmation %}
+        <div class="mb-6">
+            <p class="font-poppins text-xs md:text-sm">
+                {% blocktrans with email=confirmation.email_address.email %}
+                    Please confirm that <strong>{{ email }}</strong> is your email address.
+                {% endblocktrans %}
+            </p>
+        </div>
+
+        <form method="post" action="{% url 'account:confirm_email' confirmation.key %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">
+                {% trans "Confirm Email Address" %}
+            </button>
+        </form>
+    {% else %}
+        <div class="alert alert-error mb-6">
+            <div>
+                <i class="fa-regular fa-circle-exclamation"></i>
+                <span>
+                    {% trans "This confirmation link has expired or is invalid. Please request a new confirmation email." %}
+                </span>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <a href="{% url 'account:email' %}" class="btn btn-primary">
+                {% trans "Manage Email Addresses" %}
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+

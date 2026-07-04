@@ -1,0 +1,170 @@
+<!--TEMPLATE/ACCOUNTS/PROFILE.HTML-->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{%  include 'components/top-navbar.html' %}
+<div class="min-h-screen bg-base-200">
+ <main class="mx-4 md:mx-16 mt-4 md:mt-8 mb-4 md:mb-16 space-y-4 md:space-y-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-lg md:text-xl font-medium font-roboto mb-2">Your Profile</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Sidebar -->
+            <div class="md:col-span-1">
+                <div class="bg-base-100 border border-base-300 rounded-sm p-4 md:p-6 shadow-sm hover:bg-base-200 transition-colors flex flex-col h-full space-y-4 md:space-y-6">
+
+                        <div class="flex flex-col items-center text-center mb-4 space-y-4 md:space-y-6">
+                            <div class="avatar placeholder mb-4l">
+                                <div class="bg-neutral text-neutral-content rounded-full w-24">
+                                    <img alt="Avatar" src="https://ui-avatars.com/api/?name={{ user.first_name }}+{{ user.last_name }}&background=random" />
+                                </div>
+                            </div>
+                            <h3 class="font-roboto text-sm md:text-base text-primary font-medium">{{ user.first_name }} {{ user.last_name }}</h3>
+                            <p class="font-poppins text-xs md:text-sm">{{ user.email }}</p>
+                            <p class="font-poppins text-xs md:text-sm">Member since {{ user.date_joined|date:"M d, Y" }}</p>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <ul class="menu bg-base-200 rounded-box">
+                            <li><a href="{% url 'account:email' %}" class="flex gap-3"><i class="fa-regular
+                            fa-envelope"></i> Email Addresses</a></li>
+                            <li><a href="{% url 'account:password_change' %}" class="flex gap-3"><i class="fa-regular fa-lock"></i>
+                                Change Password</a></li>
+                            <li><a href="{% url 'account:name_change' %}" class="flex gap-3"><i class="fa-regular fa-user"></i>
+                                Update Name</a></li>
+                            <li><a href="{% url 'account:logout' %}" class="flex gap-3"><i class="fa-regular
+                            fa-right-from-bracket"></i> Sign Out</a></li>
+                        </ul>
+
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="md:col-span-2">
+                <div class="bg-base-100 border border-base-300 rounded-sm p-4 md:p-6 shadow-sm hover:bg-base-200 transition-colors flex flex-col h-full space-y-4 md:space-y-6">
+
+                        <h2 class="font-roboto text-base md:text-lg font-medium">Account Overview</h2>
+<label class="cursor-pointer text-primary flex items-center gap-2">
+  <input type="checkbox"
+         id="theme-toggle"
+         name="theme"
+         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+         hx-post="{% url 'page:set_theme' %}"
+         hx-trigger="change"
+         hx-swap="none"
+        class="toggle toggle-sm toggle-primary"
+         {% if user.userprofile.theme == 'dark' %}checked{% endif %}>
+  <span class="label-text font-poppins text-xs md:text-sm">
+      {% if user.userprofile.theme == 'dark' %}Light Mode{%else%}Dark Mode{% endif %}</span>
+</label>
+
+                        <div class="divider">Manage</div>
+    <div class="flex flex-col space-y-4 md:space-y-6 mt-2">
+        <button onclick="cancel_subscription_modal.showModal()" class="btn btn-sm btn-secondary-content text-primary">
+          <i class="fa-regular fa-plus mr-1"></i> Cancel Your Subscription
+        </button>
+
+                <button onclick="delete_account_modal.showModal()" class="btn btn-sm btn-secondary-content text-primary">
+          <i class="fa-regular fa-plus mr-1"></i> Delete Your Account
+        </button>
+      </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+ </main>
+</div>
+    <!-- Add Cancel SubscriptionModal -->
+<dialog id="cancel_subscription_modal" class="modal">
+  <div class="modal-box">
+      <div class="flex-1 space-y-4 md:space-y-6">
+          <div class="flex flex-row items-center justify-start gap-4">
+                <i class="text-error fa-regular fa-triangle-exclamation fa-2x"></i>
+                <h2 class="font-roboto text-base md:text-lg font-medium">Cancel Subscription</h2>
+        </div>
+        <p class="font-poppins font-medium text-error text-xs md:text-sm">You're about to cancel your subscription</p>
+        <p class="font-poppins text-xs md:text-sm">
+          Cancelling your subscription will end access to premium features at the end of your current billing period.
+
+        <span class="font-poppins text-error font-bold text-xs md:text-sm">This action is irreversible.</span></p>
+    <p class="font-poppins text-xs md:text-sm">If you proceed, this will immediately stop future billing and plan.</p>
+    <p class="font-poppins text-xs md:text-sm">Any unused credits will be available for use.</p>
+
+    <form method="POST" action="{% url 'subscriptions:cancel' %}">
+      {% csrf_token %}
+        <div class="flex flex-row justify-between ">
+
+
+            <!-- Cancel Button to Close Modal -->
+    <button type="button" class="btn btn-sm btn-ghost" onclick="document.getElementById('cancel_subscription_modal').close();">
+      Never mind
+    </button>
+      <button type="submit" class="btn btn-sm btn-error">
+        Cancel Subscription
+      </button>
+        </div>
+    </form>
+        </div>
+  </div>
+</dialog>
+
+
+
+<!-- Delete Account Modal -->
+<dialog id="delete_account_modal" class="modal">
+      <div class="modal-box">
+        <div class="flex-1 space-y-4 md:space-y-6">
+            <div class="flex flex-row items-center justify-start gap-4">
+            <i class="text-error fa-regular fa-triangle-exclamation fa-2x"></i>
+            <h2 class="font-roboto text-base md:text-lg font-medium">Delete Account</h2>
+            </div>
+    <p class="font-poppins text-error text-xs md:text-sm">You're about to delete your account</p>
+    <p class="font-poppins text-xs md:text-sm">
+      Deleting your account will permanently remove all your data, including:
+    </p>
+    <ul class="font-poppins text-xs md:text-sm list-disc list-inside text-left">
+      <li>Your profile information</li>
+      <li>All your projects and content</li>
+      <li>Subscription information</li>
+      <li>Any remaining credits</li>
+    </ul>
+    <p class="font-poppins text-xs md:text-sm">
+      <span class="font-poppins text-error font-bold text-xs md:text-sm">This action is permanent and cannot be undone.</span>
+    </p>
+    <p class="font-poppins text-xs md:text-sm">Are you absolutely sure you want to proceed?</p>
+
+    <form method="POST" action="{% url 'account:delete' %}">
+      {% csrf_token %}
+        <div class="flex flex-row justify-between ">
+            <!-- Cancel Button to Close Modal -->
+    <button type="button" class="btn btn-sm btn-ghost" onclick="document.getElementById('delete_account_modal').close();">
+      Cancel
+    </button>
+      <button type="submit" class="btn btn-sm btn-error">
+        Delete My Account
+      </button>
+        </div>
+    </form>
+        </div>
+      </div>
+</dialog>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+
+  themeToggle.addEventListener('change', function () {
+    // Update value to match new state
+    this.value = this.checked ? 'dark' : 'default';
+  });
+
+  // Reload after HTMX request finishes
+  document.body.addEventListener('htmx:afterRequest', function (evt) {
+    if (evt.detail.target.id === 'theme-toggle') {
+      window.location.reload();
+    }
+  });
+</script>
+{% endblock %}
+

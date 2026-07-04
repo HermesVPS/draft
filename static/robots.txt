@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /account/
+Allow: /
+
+Sitemap: https://oneclevermonkey.com/sitemap.xml

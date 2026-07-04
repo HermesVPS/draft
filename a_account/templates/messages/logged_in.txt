@@ -1,0 +1,5 @@
+{% load account %}
+{% load custom_messages %}
+{% load i18n %}
+{% user_email user as email %}
+{% blocktrans %}Successfully signed with {{email}}.{% endblocktrans %}
