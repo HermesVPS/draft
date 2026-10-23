@@ -90,6 +90,24 @@ TEMPLATES = [
 WSGI_APPLICATION = "_settings.wsgi.application"
 
 # ---------------------------------------------------------------------------
+# Email — allauth verification/password-reset emails
+# ---------------------------------------------------------------------------
+if DEBUG:
+    # Local dev: print outgoing mail to the runserver console (no SMTP needed).
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = config(
+        "EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend"
+    )
+    EMAIL_HOST = config("EMAIL_HOST", default="")
+    EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
+    EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+    EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+    EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+    DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="noreply@localhost")
+    SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+# ---------------------------------------------------------------------------
 # Database — Postgres when DATABASE_URL is set, else SQLite (dev)
 # ---------------------------------------------------------------------------
 DATABASE_URL = config("DATABASE_URL", default="")
