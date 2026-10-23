@@ -25,6 +25,7 @@ class CampaignRecipient(models.Model):
         choices=RecipientValidationStatus.choices,
         default=RecipientValidationStatus.PENDING,
     )
+    validation_issues_json = models.JSONField(default=list, blank=True)
     processing_status = models.CharField(
         max_length=30,
         choices=RecipientProcessingStatus.choices,
@@ -63,6 +64,10 @@ class CampaignRecipient(models.Model):
     @property
     def custom_fields(self):
         return self.custom_fields_json or {}
+
+    @property
+    def validation_issues(self):
+        return self.validation_issues_json or []
 
     def __str__(self):
         return f"{self.full_name} <{self.primary_email}>"

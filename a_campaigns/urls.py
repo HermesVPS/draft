@@ -1,7 +1,25 @@
 from django.urls import path
 
+from .views import (
+    campaign_create,
+    campaign_delete,
+    campaign_duplicate,
+    campaign_list,
+    campaign_update,
+    contact_error_report,
+    contact_map,
+    contact_upload,
+)
+
 app_name = "campaigns"
 
 urlpatterns = [
-    # Routes are added in later phases.
+    path("", campaign_list, name="list"),
+    path("new/", campaign_create, name="create"),
+    path("<uuid:pk>/edit/", campaign_update, name="update"),
+    path("<uuid:pk>/delete/", campaign_delete, name="delete"),
+    path("<uuid:pk>/duplicate/", campaign_duplicate, name="duplicate"),
+    path("<uuid:pk>/contacts/", contact_upload, name="contacts"),
+    path("<uuid:pk>/contacts/map/", contact_map, name="map"),
+    path("<uuid:pk>/contacts/errors/", contact_error_report, name="error_report"),
 ]

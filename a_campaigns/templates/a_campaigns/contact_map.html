@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Map Columns — {{ campaign.name }}{% endblock %}
+{% block navbar %}{% include "components/top-navbar.html" %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen">
+  <main class="mx-4 md:mx-16 mt-4 md:mt-8 mb-16">
+    <div class="max-w-3xl mx-auto space-y-6">
+      <div>
+        <h1 class="font-poppins text-2xl font-medium">{{ campaign.name }}</h1>
+        <p class="text-sm text-base-content/60">Step 2 of 5 — Map columns ({{ row_count }} rows detected)</p>
+      </div>
+
+      <form method="post" action="{% url 'campaigns:map' campaign.id %}" class="bg-base-100 border border-base-300 rounded-box p-6 space-y-4">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-error">
+          {% for e in form.non_field_errors %}{{ e }}{% endfor %}
+        </div>
+        {% endif %}
+
+        {% if sheet_names|length > 1 %}
+        <div class="form-control">
+          <label class="label" for="{{ form.sheet.id_for_label }}"><span class="label-text">Worksheet</span></label>
+          {{ form.sheet }}
+        </div>
+        {% endif %}
+
+        <p class="text-sm">Match each field to a column in your file:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {% for f in mapping_fields %}
+          <div class="form-control">
+            <label class="label"><span class="label-text">{{ f.label }}</span></label>
+            <select name="{{ f.key }}" class="select select-bordered w-full">
+              {% for value, text in f.choices %}
+              <option value="{{ value }}" {% if value == f.value %}selected{% endif %}>{{ text }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="pt-2 flex justify-between">
+          <a href="{% url 'campaigns:contacts' campaign.id %}" class="btn btn-ghost">Back</a>
+          <button type="submit" class="btn btn-primary">Validate contacts</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+{% endblock %}

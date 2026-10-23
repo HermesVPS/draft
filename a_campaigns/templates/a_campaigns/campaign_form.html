@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}{% if creating %}New Campaign{% else %}Edit Campaign{% endif %}{% endblock %}
+{% block navbar %}{% include "components/top-navbar.html" %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen">
+  <main class="mx-4 md:mx-16 mt-4 md:mt-8 mb-16">
+    <div class="max-w-3xl mx-auto space-y-6">
+      <div>
+        <h1 class="font-poppins text-2xl font-medium">
+          {% if creating %}New Campaign{% else %}Edit Campaign{% endif %}
+        </h1>
+        <p class="text-sm text-base-content/60">Step 1 of 5 — Campaign setup</p>
+      </div>
+
+      <form method="post" class="bg-base-100 border border-base-300 rounded-box p-6 space-y-4">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-error">{% for e in form.non_field_errors %}{{ e }}{% endfor %}</div>
+        {% endif %}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="form-control">
+            <label class="label" for="{{ form.name.id_for_label }}"><span class="label-text">Campaign name</span></label>
+            {{ form.name }}
+            {% if form.name.errors %}<span class="text-error text-xs">{{ form.name.errors.0 }}</span>{% endif %}
+          </div>
+          <div class="form-control">
+            <label class="label" for="{{ form.outlook_connection_label.id_for_label }}"><span class="label-text">Outlook account</span></label>
+            {{ form.outlook_connection_label }}
+            {% if form.outlook_connection_label.errors %}<span class="text-error text-xs">{{ form.outlook_connection_label.errors.0 }}</span>{% endif %}
+          </div>
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="{{ form.destination_folder_name.id_for_label }}"><span class="label-text">Destination Drafts subfolder</span></label>
+          {{ form.destination_folder_name }}
+          {% if form.destination_folder_name.errors %}<span class="text-error text-xs">{{ form.destination_folder_name.errors.0 }}</span>{% endif %}
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="{{ form.subject_original.id_for_label }}"><span class="label-text">Subject</span></label>
+          {{ form.subject_original }}
+          {% if form.subject_original.errors %}<span class="text-error text-xs">{{ form.subject_original.errors.0 }}</span>{% endif %}
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="{{ form.body_original.id_for_label }}"><span class="label-text">Body</span></label>
+          {{ form.body_original }}
+          {% if form.body_original.errors %}<span class="text-error text-xs">{{ form.body_original.errors.0 }}</span>{% endif %}
+          <span class="label-text-alt">Supports placeholders like [Name], [Company], [Role] and custom spreadsheet columns.</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="form-control">
+            <label class="label" for="{{ form.batch_size.id_for_label }}"><span class="label-text">Batch size (1–12)</span></label>
+            {{ form.batch_size }}
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <label class="label cursor-pointer justify-start gap-2">
+            {{ form.safe_punctuation_enabled }}
+            <span>Use Outlook-safe punctuation</span>
+          </label>
+          <label class="label cursor-pointer justify-start gap-2">
+            {{ form.date_review_required }}
+            <span>Require date approval</span>
+          </label>
+          <label class="label cursor-pointer justify-start gap-2">
+            {{ form.attachments_required }}
+            <span>Attachments required</span>
+          </label>
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="{{ form.notes.id_for_label }}"><span class="label-text">Notes (optional)</span></label>
+          {{ form.notes }}
+        </div>
+
+        <div class="pt-2 flex justify-between">
+          <a href="{% url 'campaigns:list' %}" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-primary">Save & continue</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+{% endblock %}

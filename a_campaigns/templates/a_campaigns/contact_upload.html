@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Contacts — {{ campaign.name }}{% endblock %}
+{% block navbar %}{% include "components/top-navbar.html" %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen">
+  <main class="mx-4 md:mx-16 mt-4 md:mt-8 mb-16">
+    <div class="max-w-3xl mx-auto space-y-6">
+      <div>
+        <h1 class="font-poppins text-2xl font-medium">{{ campaign.name }}</h1>
+        <p class="text-sm text-base-content/60">Step 2 of 5 — Contact validation</p>
+      </div>
+
+      <div class="bg-base-100 border border-base-300 rounded-box p-6 space-y-4">
+        <p class="text-sm">Upload a contact list (.xlsx or .csv). Columns <code>name</code>, <code>company</code> and <code>email</code> are required; <code>secondary email</code> and <code>role</code> are optional.</p>
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+          {% csrf_token %}
+          <div class="form-control">
+            <input type="file" name="contacts_file" accept=".xlsx,.csv" class="file-input file-input-bordered w-full" required>
+          </div>
+          <div class="flex justify-between">
+            <a href="{% url 'campaigns:update' campaign.id %}" class="btn btn-ghost">Back</a>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

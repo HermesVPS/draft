@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Campaign{% endblock %}
+{% block navbar %}{% include "components/top-navbar.html" %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen">
+  <main class="mx-4 md:mx-16 mt-8 mb-16">
+    <div class="max-w-md mx-auto">
+      <div class="bg-base-100 border border-base-300 rounded-box p-6 space-y-4">
+        <h1 class="font-poppins text-xl font-medium">Delete "{{ campaign.name }}"?</h1>
+        <p class="text-sm text-base-content/70">
+          This removes the campaign record and its uploaded files.
+          <strong>It does not delete any Outlook drafts</strong> that were already created.
+        </p>
+        <form method="post" class="flex gap-2 justify-end">
+          {% csrf_token %}
+          <a href="{% url 'campaigns:list' %}" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-error">Delete campaign</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
