@@ -1,5 +1,5 @@
 [project]
-name = "bitesize"
+name = "draft"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
@@ -7,4 +7,9 @@ dependencies = [
     "python-decouple>=3.8",
     "django-allauth>=64.0",
     "django-ratelimit>=4.1",
+    "msal>=1.39.0",
+    "openpyxl>=3.1.5",
+    "mammoth>=1.13.0",
+    "bleach>=6.4.0",
+    "dj-database-url>=3.1.2",
 ]

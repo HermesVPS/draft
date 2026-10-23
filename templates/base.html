@@ -1,4 +1,13 @@
-{% include 'components/head.html' %} {% include 'components/messages.html' %}
-{% block navbar %}{% endblock %} {% block content %}{% endblock %}
-{% include 'components/back_to_top.html' %} {% include 'components/footer.html' %}
-
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" data-theme="light">
+{% include 'components/head.html' %}
+<body class="min-h-screen flex flex-col bg-base-200">
+{% include 'components/messages.html' %}
+{% block navbar %}{% endblock %}
+{% block content %}{% endblock %}
+{% include 'components/back_to_top.html' %}
+{% include 'components/footer.html' %}
+{% block extra_body %}{% endblock %}
+</body>
+</html>
