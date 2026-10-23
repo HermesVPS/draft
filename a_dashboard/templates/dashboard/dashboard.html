@@ -5,15 +5,75 @@
 {% block navbar %}{% include "components/top-navbar.html" %}{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-base-200">
+<div class="min-h-screen">
   <main class="mx-4 md:mx-16 mt-4 md:mt-8 mb-16">
-    <div class="max-w-4xl mx-auto space-y-6">
+    <div class="max-w-5xl mx-auto space-y-6">
       <div class="flex items-center justify-between">
-        <h1 class="font-poppins text-2xl font-medium">Dashboard</h1>
+        <div>
+          <h1 class="font-poppins text-2xl font-medium">Dashboard</h1>
+          <p class="text-sm text-base-content/60">Signed in as {{ user.email }}.</p>
+        </div>
+        <a href="{% url 'campaigns:create' %}" class="btn btn-primary">
+          <i class="fa-regular fa-plus mr-1"></i> New Campaign
+        </a>
       </div>
-      <div class="bg-base-100 border border-base-300 rounded-box p-6 shadow-sm">
-        <p class="text-sm">Signed in as {{ user.email }}.</p>
-        <p class="text-sm text-base-content/60 mt-2">Campaign management will appear here in the next phases.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="{% url 'campaigns:create' %}" class="bg-base-100 border border-base-300 rounded-box p-5 hover:bg-base-200 transition-colors">
+          <i class="fa-regular fa-envelope text-primary text-xl"></i>
+          <div class="font-medium mt-2">New campaign</div>
+          <div class="text-sm text-base-content/60">Prepare personalised Outlook drafts</div>
+        </a>
+        <a href="{% url 'campaigns:list' %}" class="bg-base-100 border border-base-300 rounded-box p-5 hover:bg-base-200 transition-colors">
+          <i class="fa-regular fa-folder-open text-primary text-xl"></i>
+          <div class="font-medium mt-2">Campaigns</div>
+          <div class="text-sm text-base-content/60">View and manage your campaigns</div>
+        </a>
+        <a href="{% url 'campaigns:templates' %}" class="bg-base-100 border border-base-300 rounded-box p-5 hover:bg-base-200 transition-colors">
+          <i class="fa-regular fa-file-lines text-primary text-xl"></i>
+          <div class="font-medium mt-2">Templates</div>
+          <div class="text-sm text-base-content/60">Reusable subject & body templates</div>
+        </a>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-poppins text-lg font-medium">Recent campaigns</h2>
+          {% if recent_campaigns %}
+          <a href="{% url 'campaigns:list' %}" class="text-sm text-primary">View all</a>
+          {% endif %}
+        </div>
+
+        {% if recent_campaigns %}
+        <div class="overflow-x-auto bg-base-100 border border-base-300 rounded-box">
+          <table class="table w-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Recipients</th>
+                <th>Updated</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in recent_campaigns %}
+              <tr>
+                <td class="font-medium">{{ c.name }}</td>
+                <td><span class="badge badge-outline">{{ c.status }}</span></td>
+                <td>{{ c.recipients.count }}</td>
+                <td class="text-xs">{{ c.updated_at|date:"Y-m-d H:i" }}</td>
+                <td><a href="{% url 'campaigns:contacts' c.id %}" class="btn btn-xs btn-ghost">Continue</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="bg-base-100 border border-base-300 rounded-box p-8 text-center text-base-content/60">
+          <p>No campaigns yet. Click "New campaign" to get started.</p>
+        </div>
+        {% endif %}
       </div>
     </div>
   </main>
