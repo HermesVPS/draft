@@ -1,7 +1,25 @@
 from django import forms
 
-from .models import Campaign
+from .models import Campaign, EmailTemplate
 from .services.validation import CANONICAL_COLUMNS
+
+
+class EmailTemplateForm(forms.ModelForm):
+    class Meta:
+        model = EmailTemplate
+        fields = ["name", "subject", "body"]
+        widgets = {
+            "subject": forms.TextInput(attrs={"placeholder": "Subject (supports [Name], [Company]...)"}),
+            "body": forms.Textarea(attrs={"rows": 10}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            if isinstance(field.widget, forms.TextInput):
+                field.widget.attrs.setdefault("class", "input input-bordered w-full")
+            elif isinstance(field.widget, forms.Textarea):
+                field.widget.attrs.setdefault("class", "textarea textarea-bordered w-full")
 
 
 class CampaignForm(forms.ModelForm):

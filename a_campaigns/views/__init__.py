@@ -10,6 +10,13 @@ from .contact_views import (
     contact_map,
     contact_upload,
 )
+from .template_views import (
+    template_apply,
+    template_delete,
+    template_import,
+    template_list,
+    template_save,
+)
 
 __all__ = [
     "campaign_list",
@@ -20,4 +27,9 @@ __all__ = [
     "contact_upload",
     "contact_map",
     "contact_error_report",
+    "template_list",
+    "template_save",
+    "template_delete",
+    "template_apply",
+    "template_import",
 ]

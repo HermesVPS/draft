@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Templates{% endblock %}
+{% block navbar %}{% include "components/top-navbar.html" %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen">
+  <main class="mx-4 md:mx-16 mt-4 md:mt-8 mb-16">
+    <div class="max-w-3xl mx-auto space-y-6">
+      <div class="flex items-center justify-between">
+        <h1 class="font-poppins text-2xl font-medium">Templates</h1>
+        <a href="{% url 'campaigns:list' %}" class="btn btn-ghost">Back to campaigns</a>
+      </div>
+
+      <div class="bg-base-100 border border-base-300 rounded-box p-6 space-y-4">
+        <h2 class="font-medium">Save a reusable template</h2>
+        <form method="post" action="{% url 'campaigns:template_save' %}" class="space-y-3">
+          {% csrf_token %}
+          <div class="form-control">
+            <label class="label"><span class="label-text">Template name</span></label>
+            <input type="text" name="name" class="input input-bordered w-full" required>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Subject</span></label>
+            <input type="text" name="subject" class="input input-bordered w-full">
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Body</span></label>
+            <textarea name="body" rows="6" class="textarea textarea-bordered w-full"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save template</button>
+        </form>
+      </div>
+
+      <div class="bg-base-100 border border-base-300 rounded-box overflow-x-auto">
+        <table class="table w-full">
+          <thead><tr><th>Name</th><th>Subject</th><th>Updated</th><th></th></tr></thead>
+          <tbody>
+            {% for t in templates %}
+            <tr>
+              <td class="font-medium">{{ t.name }}</td>
+              <td class="text-xs">{{ t.subject|truncatechars:60 }}</td>
+              <td class="text-xs">{{ t.updated_at|date:"Y-m-d" }}</td>
+              <td>
+                <form method="post" action="{% url 'campaigns:template_delete' t.id %}" class="inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-xs btn-ghost text-error">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center text-base-content/50 py-6">No saved templates.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

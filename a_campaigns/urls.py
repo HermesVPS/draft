@@ -9,6 +9,11 @@ from .views import (
     contact_error_report,
     contact_map,
     contact_upload,
+    template_apply,
+    template_delete,
+    template_import,
+    template_list,
+    template_save,
 )
 
 app_name = "campaigns"
@@ -22,4 +27,9 @@ urlpatterns = [
     path("<uuid:pk>/contacts/", contact_upload, name="contacts"),
     path("<uuid:pk>/contacts/map/", contact_map, name="map"),
     path("<uuid:pk>/contacts/errors/", contact_error_report, name="error_report"),
+    path("templates/", template_list, name="templates"),
+    path("templates/save/", template_save, name="template_save"),
+    path("templates/import/", template_import, name="template_import"),
+    path("templates/<uuid:pk>/delete/", template_delete, name="template_delete"),
+    path("templates/<uuid:pk>/apply/", template_apply, name="template_apply"),
 ]
